@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Ngọc Ngân 🌸</title>
+
+    <style>
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffd6e8, #fff3f8, #dff6ff);
+            color: #333;
+            text-align: center;
+        }
+
+        .screen {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 5;
+        }
+
+        .card {
+            width: 92%;
+            max-width: 430px;
+            background: rgba(255, 255, 255, .92);
+            padding: 28px 20px;
+            border-radius: 28px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .18);
+            animation: pop .8s ease;
+        }
+
+        @keyframes pop {
+            from {
+                opacity: 0;
+                transform: scale(.9) translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0)
+            }
+        }
+
+        h1 {
+            color: #ff4f93;
+            font-size: 30px;
+        }
+
+        p {
+            font-size: 19px;
+            line-height: 1.5;
+        }
+
+        .btn {
+            display: block;
+            width: 90%;
+            margin: 12px auto;
+            padding: 14px;
+            border: none;
+            border-radius: 28px;
+            background: #ff4f93;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #ff2f80
+        }
+
+        .back {
+            background: #999
+        }
+
+        .videoBox {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            display: none;
+            z-index: 10;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, .25), rgba(0, 0, 0, .55));
+            z-index: 11;
+            display: none;
+        }
+
+        .caption {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 70px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 0 0 15px #000;
+            z-index: 12;
+            display: none;
+            padding: 0 20px;
+        }
+
+        .sticker {
+            position: absolute;
+            font-size: 32px;
+            animation: float 4s infinite ease-in-out;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-18px)
+            }
+        }
+
+        .fade {
+            animation: fade .8s ease;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sticker" style="top:8%;left:10%">🌸</div>
+    <div class="sticker" style="top:15%;right:12%">🌻</div>
+    <div class="sticker" style="bottom:12%;left:14%">💖</div>
+    <div class="sticker" style="bottom:10%;right:15%">✨</div>
+
+    <audio id="music" src="nhac.mp3" loop></audio>
+
+    <div class="videoBox" id="videoBox">
+        <video id="flowerVideo" playsinline></video>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="caption" id="caption"></div>
+
+    <div class="screen" id="screen">
+        <div class="card">
+            <h1>Xin chào Ngọc Ngân 🌸</h1>
+            <p>Anh có một câu hỏi nhỏ thôi 😆</p>
+            <p><b>Ngân thích loài hoa nào nhất?</b></p>
+
+            <button class="btn" onclick="playFlower('🌻 Hoa hướng dương','huongduong.mp4')">🌻 Hoa hướng dương</button>
+            <button class="btn" onclick="playFlower('🌹 Hoa hồng','hong.mp4')">🌹 Hoa hồng</button>
+            <button class="btn" onclick="playFlower('🌷 Hoa tulip','tulip.mp4')">🌷 Hoa tulip</button>
+            <button class="btn" onclick="playFlower('🌼 Hoa cúc','cuc.mp4')">🌼 Hoa cúc</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedFlower = "";
+
+        function playFlower(name, videoFile) {
+            selectedFlower = name;
+
+            const screen = document.getElementById("screen");
+            const videoBox = document.getElementById("videoBox");
+            const video = document.getElementById("flowerVideo");
+            const overlay = document.getElementById("overlay");
+            const caption = document.getElementById("caption");
+            const music = document.getElementById("music");
+
+            screen.style.display = "none";
+            videoBox.style.display = "block";
+            overlay.style.display = "block";
+            caption.style.display = "block";
+
+            video.src = videoFile;
+            video.currentTime = 0;
+            video.muted = true;
+            video.play();
+
+            music.volume = 0.75;
+            music.currentTime = 0;
+            music.play().catch(() => { });
+
+            caption.innerHTML = `${name}<br>Đây là loài hoa Ngân chọn nè ✨`;
+
+            video.onended = function () {
+                showAfterVideo();
+            };
+
+            setTimeout(function () {
+                if (!video.paused) {
+                    showAfterVideo();
+                }
+            }, 12000);
+        }
+
+        function showAfterVideo() {
+            const videoBox = document.getElementById("videoBox");
+            const overlay = document.getElementById("overlay");
+            const caption = document.getElementById("caption");
+            const screen = document.getElementById("screen");
+            const video = document.getElementById("flowerVideo");
+            const music = document.getElementById("music");
+
+            video.pause();
+            music.pause();
+
+            videoBox.style.display = "none";
+            overlay.style.display = "none";
+            caption.style.display = "none";
+            screen.style.display = "flex";
+
+            screen.innerHTML = `
+        <div class="card fade">
+            <h1>${selectedFlower}</h1>
+            <p>Ngân vừa chọn loài hoa này đó 🌸</p>
+            <p>Muốn xem lại loài hoa khác không?</p>
+
+            <button class="btn back" onclick="backToChoose()">🔙 Chọn loài hoa khác</button>
+            <button class="btn" onclick="thankYou()">Tiếp ➡️</button>
+        </div>
+    `;
+        }
+
+        function backToChoose() {
+            document.getElementById("screen").innerHTML = `
+        <div class="card fade">
+            <h1>Ngân thích loài hoa nào nhất? 🌸</h1>
+
+            <button class="btn" onclick="playFlower('🌻 Hoa hướng dương','huongduong.mp4')">🌻 Hoa hướng dương</button>
+            <button class="btn" onclick="playFlower('🌹 Hoa hồng','hong.mp4')">🌹 Hoa hồng</button>
+            <button class="btn" onclick="playFlower('🌷 Hoa tulip','tulip.mp4')">🌷 Hoa tulip</button>
+            <button class="btn" onclick="playFlower('🌼 Hoa cúc','cuc.mp4')">🌼 Hoa cúc</button>
+        </div>
+    `;
+        }
+
+        function thankYou() {
+            document.getElementById("screen").innerHTML = `
+        <div class="card fade">
+            <h1>Cảm ơn Ngân đã xem 🌷</h1>
+            <p>
+                Hôm nay anh chỉ hỏi 1 câu này thôi 😆<br>
+                Những ngày tiếp theo anh sẽ có những thứ khác muốn cho Ngân xem tiếp.<br>
+                Hãy nhớ xem nha 🐰✨
+            </p>
+
+            <button class="btn" onclick="bye()">Ok 😆</button>
+            <button class="btn back" onclick="sad()">Không 😢</button>
+        </div>
+    `;
+        }
+
+        function bye() {
+            document.getElementById("screen").innerHTML = `
+        <div class="card fade">
+            <div style="font-size:80px">🐰👋</div>
+            <h1>Bái bai Ngân nha 🌸</h1>
+            <p>Mai lại có điều bất ngờ khác nha ✨</p>
+        </div>
+    `;
+        }
+
+        function sad() {
+            document.getElementById("screen").innerHTML = `
+        <div class="card fade">
+            <div style="font-size:80px">🥺💔</div>
+            <h1>Buồn quá...</h1>
+            <p>Vậy web đi ngủ trước nha 😢</p>
+        </div>
+    `;
+
+            setTimeout(() => {
+                document.body.innerHTML = "";
+                document.body.style.background = "#fff";
+            }, 1800);
+        }
+    </script>
+
+</body>
+
+</html>
