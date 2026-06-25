@@ -2,244 +2,280 @@
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gửi Ngọc Ngân 🌸</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gửi Ngọc Ngân 🌸</title>
 
-    <style>
-        * {
-            box-sizing: border-box
-        }
+<style>
+*{box-sizing:border-box}
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #ffd6e8, #fff3f8, #dff6ff);
-            color: #333;
-            text-align: center;
-        }
+body{
+    margin:0;
+    min-height:100vh;
+    overflow:hidden;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#ffd6e8,#fff3f8,#dff6ff);
+    color:#333;
+    text-align:center;
+}
 
-        .screen {
-            position: fixed;
-            inset: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            z-index: 5;
-        }
+.screen{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    z-index:5;
+}
 
-        .card {
-            width: 92%;
-            max-width: 430px;
-            background: rgba(255, 255, 255, .92);
-            padding: 28px 20px;
-            border-radius: 28px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, .18);
-            animation: pop .8s ease;
-        }
+.card{
+    width:92%;
+    max-width:430px;
+    background:rgba(255,255,255,.92);
+    padding:28px 20px;
+    border-radius:28px;
+    box-shadow:0 15px 40px rgba(0,0,0,.18);
+    animation:pop .8s ease;
+}
 
-        @keyframes pop {
-            from {
-                opacity: 0;
-                transform: scale(.9) translateY(20px)
-            }
+@keyframes pop{
+    from{opacity:0;transform:scale(.9) translateY(20px)}
+    to{opacity:1;transform:scale(1) translateY(0)}
+}
 
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0)
-            }
-        }
+h1{
+    color:#ff4f93;
+    font-size:30px;
+}
 
-        h1 {
-            color: #ff4f93;
-            font-size: 30px;
-        }
+p{
+    font-size:19px;
+    line-height:1.5;
+}
 
-        p {
-            font-size: 19px;
-            line-height: 1.5;
-        }
+.btn{
+    display:block;
+    width:90%;
+    margin:12px auto;
+    padding:14px;
+    border:none;
+    border-radius:28px;
+    background:#ff4f93;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
 
-        .btn {
-            display: block;
-            width: 90%;
-            margin: 12px auto;
-            padding: 14px;
-            border: none;
-            border-radius: 28px;
-            background: #ff4f93;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-        }
+.btn:hover{background:#ff2f80}
 
-        .btn:hover {
-            background: #ff2f80
-        }
+.back{background:#999}
 
-        .back {
-            background: #999
-        }
+.videoBox{
+    position:fixed;
+    inset:0;
+    background:#000;
+    display:none;
+    z-index:10;
+    overflow:hidden;
+}
 
-        .videoBox {
-            position: fixed;
-            inset: 0;
-            background: #000;
-            display: none;
-            z-index: 10;
-        }
+.bgVideo{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:blur(22px) brightness(.45);
+    transform:scale(1.12);
+}
 
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+.videoFrame{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:min(94vw,900px);
+    height:min(78vh,560px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:24px;
+    overflow:hidden;
+    background:#000;
+    box-shadow:0 20px 60px rgba(0,0,0,.55);
+    z-index:12;
+}
 
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, .25), rgba(0, 0, 0, .55));
-            z-index: 11;
-            display: none;
-        }
+#flowerVideo{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    background:#000;
+}
 
-        .caption {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 70px;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            text-shadow: 0 0 15px #000;
-            z-index: 12;
-            display: none;
-            padding: 0 20px;
-        }
+.overlay{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(to bottom,rgba(0,0,0,.15),rgba(0,0,0,.5));
+    z-index:11;
+    display:none;
+    pointer-events:none;
+}
 
-        .sticker {
-            position: absolute;
-            font-size: 32px;
-            animation: float 4s infinite ease-in-out;
-        }
+.caption{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:32px;
+    color:white;
+    font-size:22px;
+    font-weight:bold;
+    text-shadow:0 0 15px #000;
+    z-index:13;
+    display:none;
+    padding:0 20px;
+}
 
-        @keyframes float {
+.sticker{
+    position:absolute;
+    font-size:32px;
+    animation:float 4s infinite ease-in-out;
+}
 
-            0%,
-            100% {
-                transform: translateY(0)
-            }
+@keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-18px)}
+}
 
-            50% {
-                transform: translateY(-18px)
-            }
-        }
+.fade{animation:fade .8s ease}
 
-        .fade {
-            animation: fade .8s ease;
-        }
+@keyframes fade{
+    from{opacity:0}
+    to{opacity:1}
+}
 
-        @keyframes fade {
-            from {
-                opacity: 0
-            }
+@media(max-width:600px){
+    .videoFrame{
+        width:94vw;
+        height:72vh;
+        border-radius:18px;
+    }
 
-            to {
-                opacity: 1
-            }
-        }
-    </style>
+    .caption{
+        bottom:24px;
+        font-size:18px;
+    }
+
+    h1{font-size:27px}
+    p{font-size:18px}
+}
+</style>
 </head>
 
 <body>
 
-    <div class="sticker" style="top:8%;left:10%">🌸</div>
-    <div class="sticker" style="top:15%;right:12%">🌻</div>
-    <div class="sticker" style="bottom:12%;left:14%">💖</div>
-    <div class="sticker" style="bottom:10%;right:15%">✨</div>
+<div class="sticker" style="top:8%;left:10%">🌸</div>
+<div class="sticker" style="top:15%;right:12%">🌻</div>
+<div class="sticker" style="bottom:12%;left:14%">💖</div>
+<div class="sticker" style="bottom:10%;right:15%">✨</div>
 
-    <audio id="music" src="nhac.mp3" loop></audio>
+<audio id="music" src="nhac.mp3" loop></audio>
 
-    <div class="videoBox" id="videoBox">
+<div class="videoBox" id="videoBox">
+    <video id="bgVideo" class="bgVideo" muted playsinline loop></video>
+
+    <div class="videoFrame">
         <video id="flowerVideo" playsinline></video>
     </div>
+</div>
 
-    <div class="overlay" id="overlay"></div>
-    <div class="caption" id="caption"></div>
+<div class="overlay" id="overlay"></div>
+<div class="caption" id="caption"></div>
 
-    <div class="screen" id="screen">
-        <div class="card">
-            <h1>Xin chào Ngọc Ngân 🌸</h1>
-            <p>Anh có một câu hỏi nhỏ thôi 😆</p>
-            <p><b>Ngân thích loài hoa nào nhất?</b></p>
+<div class="screen" id="screen">
+    <div class="card">
+        <h1>Xin chào Ngọc Ngân 🌸</h1>
+        <p>Anh có một câu hỏi nhỏ thôi 😆</p>
+        <p><b>Ngân thích loài hoa nào nhất?</b></p>
 
-            <button class="btn" onclick="playFlower('🌻 Hoa hướng dương','huongduong.mp4')">🌻 Hoa hướng dương</button>
-            <button class="btn" onclick="playFlower('🌹 Hoa hồng','hong.mp4')">🌹 Hoa hồng</button>
-            <button class="btn" onclick="playFlower('🌷 Hoa tulip','tulip.mp4')">🌷 Hoa tulip</button>
-            <button class="btn" onclick="playFlower('🌼 Hoa cúc','cuc.mp4')">🌼 Hoa cúc</button>
-        </div>
+        <button class="btn" onclick="playFlower('🌻 Hoa hướng dương','huongduong.mp4')">🌻 Hoa hướng dương</button>
+        <button class="btn" onclick="playFlower('🌹 Hoa hồng','hong.mp4')">🌹 Hoa hồng</button>
+        <button class="btn" onclick="playFlower('🌷 Hoa tulip','tulip.mp4')">🌷 Hoa tulip</button>
+        <button class="btn" onclick="playFlower('🌼 Hoa cúc','cuc.mp4')">🌼 Hoa cúc</button>
     </div>
+</div>
 
-    <script>
-        let selectedFlower = "";
+<script>
+let selectedFlower="";
+let finishTimer=null;
 
-        function playFlower(name, videoFile) {
-            selectedFlower = name;
+function playFlower(name,videoFile){
+    selectedFlower=name;
 
-            const screen = document.getElementById("screen");
-            const videoBox = document.getElementById("videoBox");
-            const video = document.getElementById("flowerVideo");
-            const overlay = document.getElementById("overlay");
-            const caption = document.getElementById("caption");
-            const music = document.getElementById("music");
+    const screen=document.getElementById("screen");
+    const videoBox=document.getElementById("videoBox");
+    const video=document.getElementById("flowerVideo");
+    const bgVideo=document.getElementById("bgVideo");
+    const overlay=document.getElementById("overlay");
+    const caption=document.getElementById("caption");
+    const music=document.getElementById("music");
 
-            screen.style.display = "none";
-            videoBox.style.display = "block";
-            overlay.style.display = "block";
-            caption.style.display = "block";
+    screen.style.display="none";
+    videoBox.style.display="block";
+    overlay.style.display="block";
+    caption.style.display="block";
 
-            video.src = videoFile;
-            video.currentTime = 0;
-            video.muted = true;
-            video.play();
+    video.src=videoFile;
+    bgVideo.src=videoFile;
 
-            music.volume = 0.75;
-            music.currentTime = 0;
-            music.play().catch(() => { });
+    video.currentTime=0;
+    bgVideo.currentTime=0;
 
-            caption.innerHTML = `${name}<br>Đây là loài hoa Ngân chọn nè ✨`;
+    video.muted=true;
+    bgVideo.muted=true;
 
-            video.onended = function () {
-                showAfterVideo();
-            };
+    video.play().catch(()=>{});
+    bgVideo.play().catch(()=>{});
 
-            setTimeout(function () {
-                if (!video.paused) {
-                    showAfterVideo();
-                }
-            }, 12000);
-        }
+    music.volume=.75;
+    music.currentTime=0;
+    music.play().catch(()=>{});
 
-        function showAfterVideo() {
-            const videoBox = document.getElementById("videoBox");
-            const overlay = document.getElementById("overlay");
-            const caption = document.getElementById("caption");
-            const screen = document.getElementById("screen");
-            const video = document.getElementById("flowerVideo");
-            const music = document.getElementById("music");
+    caption.innerHTML=`${name}<br>Đây là loài hoa Ngân chọn nè ✨`;
 
-            video.pause();
-            music.pause();
+    clearTimeout(finishTimer);
 
-            videoBox.style.display = "none";
-            overlay.style.display = "none";
-            caption.style.display = "none";
-            screen.style.display = "flex";
+    video.onended=function(){
+        showAfterVideo();
+    };
 
-            screen.innerHTML = `
+    finishTimer=setTimeout(function(){
+        showAfterVideo();
+    },12000);
+}
+
+function showAfterVideo(){
+    const videoBox=document.getElementById("videoBox");
+    const overlay=document.getElementById("overlay");
+    const caption=document.getElementById("caption");
+    const screen=document.getElementById("screen");
+    const video=document.getElementById("flowerVideo");
+    const bgVideo=document.getElementById("bgVideo");
+    const music=document.getElementById("music");
+
+    clearTimeout(finishTimer);
+
+    video.pause();
+    bgVideo.pause();
+    music.pause();
+
+    videoBox.style.display="none";
+    overlay.style.display="none";
+    caption.style.display="none";
+    screen.style.display="flex";
+
+    screen.innerHTML=`
         <div class="card fade">
             <h1>${selectedFlower}</h1>
             <p>Ngân vừa chọn loài hoa này đó 🌸</p>
@@ -249,10 +285,10 @@
             <button class="btn" onclick="thankYou()">Tiếp ➡️</button>
         </div>
     `;
-        }
+}
 
-        function backToChoose() {
-            document.getElementById("screen").innerHTML = `
+function backToChoose(){
+    document.getElementById("screen").innerHTML=`
         <div class="card fade">
             <h1>Ngân thích loài hoa nào nhất? 🌸</h1>
 
@@ -262,10 +298,10 @@
             <button class="btn" onclick="playFlower('🌼 Hoa cúc','cuc.mp4')">🌼 Hoa cúc</button>
         </div>
     `;
-        }
+}
 
-        function thankYou() {
-            document.getElementById("screen").innerHTML = `
+function thankYou(){
+    document.getElementById("screen").innerHTML=`
         <div class="card fade">
             <h1>Cảm ơn Ngân đã xem 🌷</h1>
             <p>
@@ -278,20 +314,20 @@
             <button class="btn back" onclick="sad()">Không 😢</button>
         </div>
     `;
-        }
+}
 
-        function bye() {
-            document.getElementById("screen").innerHTML = `
+function bye(){
+    document.getElementById("screen").innerHTML=`
         <div class="card fade">
             <div style="font-size:80px">🐰👋</div>
             <h1>Bái bai Ngân nha 🌸</h1>
             <p>Mai lại có điều bất ngờ khác nha ✨</p>
         </div>
     `;
-        }
+}
 
-        function sad() {
-            document.getElementById("screen").innerHTML = `
+function sad(){
+    document.getElementById("screen").innerHTML=`
         <div class="card fade">
             <div style="font-size:80px">🥺💔</div>
             <h1>Buồn quá...</h1>
@@ -299,13 +335,12 @@
         </div>
     `;
 
-            setTimeout(() => {
-                document.body.innerHTML = "";
-                document.body.style.background = "#fff";
-            }, 1800);
-        }
-    </script>
+    setTimeout(()=>{
+        document.body.innerHTML="";
+        document.body.style.background="#fff";
+    },1800);
+}
+</script>
 
 </body>
-
 </html>
